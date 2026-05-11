@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrackLift — Phase 1 Screens</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #111; padding: 40px 24px; }
+  h1 { font-size: 22px; font-weight: 600; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #888; margin-bottom: 40px; }
+  .screen-section { margin-bottom: 48px; }
+  .screen-label { font-size: 11px; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px; }
+  .screen-wrap { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; overflow: hidden; }
+  input { border: 0.5px solid #ddd; border-radius: 6px; background: #fff; font-family: inherit; outline: none; }
+  button { border: 0.5px solid #ddd; border-radius: 6px; background: #fff; font-family: inherit; cursor: pointer; }
+  table { border-collapse: collapse; }
+</style>
+</head>
+<body>
+<h1>🏋️ TrackLift — Phase 1 Screens</h1>
+<p class="subtitle">Sign in · Trainer dashboard · Add client · Edit program</p>
+
+<div class="screen-section">
+  <p class="screen-label">1 — Sign in</p>
+  <div class="screen-wrap" style="display:flex;align-items:center;justify-content:center;padding:48px;background:#fafafa;">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:24px;width:300px;">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+        <div style="width:52px;height:52px;border-radius:14px;background:#111;display:flex;align-items:center;justify-content:center;font-size:26px;">🏋️</div>
+        <p style="font-size:22px;font-weight:600;">TrackLift</p>
+        <p style="font-size:13px;color:#888;text-align:center;">Track your progress. See what's working.</p>
+      </div>
+      <div style="width:100%;border:0.5px solid #e0e0e0;border-radius:12px;padding:24px;display:flex;flex-direction:column;gap:12px;background:#fff;">
+        <p style="font-size:15px;font-weight:500;text-align:center;">Welcome back</p>
+        <p style="font-size:12px;color:#888;text-align:center;margin-top:-6px;">Sign in to access your workouts</p>
+        <input type="email" placeholder="Email" style="width:100%;padding:9px 12px;font-size:13px;">
+        <input type="password" placeholder="Password" style="width:100%;padding:9px 12px;font-size:13px;">
+        <button style="width:100%;padding:10px;font-size:13px;font-weight:500;background:#111;color:#fff;border:none;border-radius:6px;">Sign in</button>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:0.5px;background:#e0e0e0;"></div><span style="font-size:11px;color:#888;">or</span><div style="flex:1;height:0.5px;background:#e0e0e0;"></div></div>
+        <button style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:9px;font-size:13px;border-radius:6px;">
+          <svg width="15" height="15" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.18 1.48-4.97 2.31-8.16 2.31-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          Continue with Google
+        </button>
+        <p style="font-size:11px;color:#888;text-align:center;">Your role is assigned automatically based on your account.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen-section">
+  <p class="screen-label">3 — Trainer dashboard (read mode)</p>
+  <div class="screen-wrap" style="display:flex;height:420px;">
+    <div style="width:200px;border-right:0.5px solid #e0e0e0;display:flex;flex-direction:column;background:#fafafa;flex-shrink:0;">
+      <div style="padding:14px;border-bottom:0.5px solid #e0e0e0;"><p style="font-size:13px;font-weight:500;">Rachel's clients</p><p style="font-size:11px;color:#888;margin-top:3px;">8 active</p></div>
+      <div style="padding:8px;flex:1;overflow:hidden;">
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;background:#fff;border:0.5px solid #e0e0e0;margin-bottom:2px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#3B82F6;">R</div>
+          <div><p style="font-size:12px;font-weight:500;">Roey</p><p style="font-size:11px;color:#888;">2x / week</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;margin-bottom:2px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#888;">S</div>
+          <div><p style="font-size:12px;">Shoval</p><p style="font-size:11px;color:#888;">3x / week</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;margin-bottom:2px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#888;">R</div>
+          <div><p style="font-size:12px;">Roni</p><p style="font-size:11px;color:#888;">2x / week</p></div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#888;">T</div>
+          <div><p style="font-size:12px;">Tom</p><p style="font-size:11px;color:#888;">4x / week</p></div>
+        </div>
+      </div>
+      <div style="padding:10px 8px;border-top:0.5px solid #e0e0e0;"><button style="width:100%;font-size:12px;padding:6px;border-radius:6px;">+ Add client</button></div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
+      <div style="padding:12px 20px;border-bottom:0.5px solid #e0e0e0;display:flex;align-items:center;justify-content:space-between;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:34px;height:34px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:500;color:#3B82F6;">R</div>
+          <div><p style="font-size:14px;font-weight:500;">Roey</p><p style="font-size:11px;color:#888;">Strength Phase 1 · 2x / week</p></div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          <button style="font-size:12px;padding:5px 12px;border-radius:6px;background:#111;color:#fff;border:none;">Edit program</button>
+          <button style="font-size:14px;padding:3px 10px;border-radius:6px;">···</button>
+        </div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:14px 20px;display:flex;flex-direction:column;gap:14px;">
+        <div style="border:0.5px solid #e0e0e0;border-radius:10px;overflow:hidden;">
+          <div style="padding:9px 14px;border-bottom:0.5px solid #e0e0e0;display:flex;justify-content:space-between;align-items:center;background:#fafafa;"><p style="font-size:12px;font-weight:500;">Workout A</p><span style="font-size:11px;color:#888;">5 exercises</span></div>
+          <table style="width:100%;font-size:12px;table-layout:fixed;">
+            <thead><tr style="background:#f5f5f5;"><th style="text-align:left;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:36%;">Exercise</th><th style="text-align:center;padding:6px;font-weight:500;color:#888;font-size:11px;width:13%;">Sets</th><th style="text-align:center;padding:6px;font-weight:500;color:#888;font-size:11px;width:13%;">Reps</th><th style="text-align:right;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:24%;">Resistance</th><th style="text-align:center;padding:6px;font-weight:500;color:#888;font-size:11px;width:14%;">Notes</th></tr></thead>
+            <tbody>
+              <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:8px 14px;">Pull up</td><td style="padding:8px;text-align:center;color:#888;">3</td><td style="padding:8px;text-align:center;color:#888;">7</td><td style="padding:8px 14px;text-align:right;color:#888;">Red band</td><td style="padding:8px;text-align:center;"><span style="cursor:pointer;font-size:15px;color:#111;">+</span></td></tr>
+              <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:8px 14px;">Db deadlift</td><td style="padding:8px;text-align:center;color:#888;">3</td><td style="padding:8px;text-align:center;color:#888;">10</td><td style="padding:8px 14px;text-align:right;color:#888;">25 kg</td><td style="padding:8px;text-align:center;"><span style="font-size:15px;color:#ddd;">+</span></td></tr>
+              <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:8px 14px;">Db incline bench</td><td style="padding:8px;text-align:center;color:#888;">3</td><td style="padding:8px;text-align:center;color:#888;">10</td><td style="padding:8px 14px;text-align:right;color:#888;">10 kg</td><td style="padding:8px;text-align:center;"><span style="cursor:pointer;font-size:15px;color:#111;">+</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="border:0.5px solid #e0e0e0;border-radius:10px;overflow:hidden;">
+          <div style="padding:9px 14px;border-bottom:0.5px solid #e0e0e0;display:flex;justify-content:space-between;align-items:center;background:#fafafa;"><p style="font-size:12px;font-weight:500;">Workout B</p><span style="font-size:11px;color:#888;">5 exercises</span></div>
+          <table style="width:100%;font-size:12px;table-layout:fixed;">
+            <thead><tr style="background:#f5f5f5;"><th style="text-align:left;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:36%;">Exercise</th><th style="text-align:center;padding:6px;font-weight:500;color:#888;font-size:11px;width:13%;">Sets</th><th style="text-align:center;padding:6px;font-weight:500;color:#888;font-size:11px;width:13%;">Reps</th><th style="text-align:right;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:24%;">Resistance</th><th style="text-align:center;padding:6px;font-weight:500;color:#888;font-size:11px;width:14%;">Notes</th></tr></thead>
+            <tbody>
+              <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:8px 14px;">Db/Bb squat</td><td style="padding:8px;text-align:center;color:#888;">3</td><td style="padding:8px;text-align:center;color:#888;">8</td><td style="padding:8px 14px;text-align:right;color:#888;">30 kg</td><td style="padding:8px;text-align:center;"><span style="font-size:15px;color:#ddd;">+</span></td></tr>
+              <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:8px 14px;">Bb bench press</td><td style="padding:8px;text-align:center;color:#888;">3</td><td style="padding:8px;text-align:center;color:#888;">10</td><td style="padding:8px 14px;text-align:right;color:#888;">27.5 kg</td><td style="padding:8px;text-align:center;"><span style="font-size:15px;color:#ddd;">+</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="padding:10px 20px;border-top:0.5px solid #e0e0e0;"><p style="font-size:11px;color:#888;">Last session: Apr 28, 2026</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="screen-section">
+  <p class="screen-label">3b — Add new client modal (Phase 1)</p>
+  <div class="screen-wrap" style="min-height:520px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;padding:40px;">
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;width:380px;">
+      <div style="padding:16px 20px;border-bottom:0.5px solid #e0e0e0;display:flex;align-items:center;justify-content:space-between;">
+        <p style="font-size:14px;font-weight:500;margin:0;">Add new client</p>
+        <span style="font-size:18px;color:#888;cursor:pointer;">×</span>
+      </div>
+      <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+        <div style="display:flex;gap:12px;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+            <label style="font-size:11px;font-weight:500;color:#888;">First name</label>
+            <input type="text" placeholder="Roey" style="width:100%;padding:8px 10px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;box-sizing:border-box;">
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:5px;">
+            <label style="font-size:11px;font-weight:500;color:#888;">Last name</label>
+            <input type="text" placeholder="Cohen" style="width:100%;padding:8px 10px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;box-sizing:border-box;">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <label style="font-size:11px;font-weight:500;color:#888;">Email</label>
+          <input type="email" placeholder="roey@gmail.com" style="width:100%;padding:8px 10px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;box-sizing:border-box;">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <label style="font-size:11px;font-weight:500;color:#888;">Program name</label>
+          <input type="text" placeholder="e.g. Strength Phase 1" style="width:100%;padding:8px 10px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;box-sizing:border-box;">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;">
+          <label style="font-size:11px;font-weight:500;color:#888;">Workouts per week</label>
+          <div style="display:flex;gap:8px;">
+            <button style="flex:1;padding:8px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;background:#fff;">1</button>
+            <button style="flex:1;padding:8px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;background:#fff;">2</button>
+            <button style="flex:1;padding:8px;font-size:13px;border:none;border-radius:6px;background:#111;color:#fff;">3</button>
+            <button style="flex:1;padding:8px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;background:#fff;">4</button>
+            <button style="flex:1;padding:8px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;background:#fff;">5</button>
+          </div>
+        </div>
+
+        <div style="border-top:0.5px solid #e0e0e0;padding-top:14px;display:flex;gap:8px;justify-content:flex-end;">
+          <button style="font-size:13px;padding:8px 16px;border:0.5px solid #ddd;border-radius:6px;background:#fff;">Cancel</button>
+          <button style="font-size:13px;padding:8px 16px;border:none;border-radius:6px;background:#111;color:#fff;">Create client</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen-section">
+  <p class="screen-label">3c — Blank template (Phase 1)</p>
+  <div class="screen-wrap" style="display:flex;flex-direction:column;height:420px;">
+    <div style="padding:12px 20px;border-bottom:0.5px solid #e0e0e0;display:flex;align-items:center;justify-content:space-between;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:#EFF6FF;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#3B82F6;">R</div>
+        <div><p style="font-size:14px;font-weight:500;margin:0;">Roey — Strength Phase 1</p><p style="font-size:11px;color:#888;margin:0;">3x / week · blank template</p></div>
+      </div>
+      <button style="font-size:12px;padding:5px 14px;border:none;border-radius:6px;background:#111;color:#fff;">Edit program</button>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:14px 20px;display:flex;flex-direction:column;gap:12px;">
+      <div style="border:0.5px solid #e0e0e0;border-radius:10px;overflow:hidden;">
+        <div style="padding:9px 14px;border-bottom:0.5px solid #e0e0e0;display:flex;justify-content:space-between;background:#fafafa;"><p style="font-size:12px;font-weight:500;margin:0;">Workout A</p><span style="font-size:11px;color:#888;">0 exercises</span></div>
+        <table style="width:100%;font-size:12px;table-layout:fixed;">
+          <thead><tr style="background:#f5f5f5;"><th style="text-align:left;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:30%;">Muscle group</th><th style="text-align:left;padding:6px 10px;font-weight:500;color:#888;font-size:11px;width:15%;">Category</th><th style="text-align:left;padding:6px 10px;font-weight:500;color:#888;font-size:11px;width:25%;">Exercise</th><th style="text-align:center;padding:6px 8px;font-weight:500;color:#888;font-size:11px;width:10%;">Sets</th><th style="text-align:center;padding:6px 8px;font-weight:500;color:#888;font-size:11px;width:10%;">Reps</th><th style="text-align:right;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:10%;">Weight</th></tr></thead>
+          <tbody><tr><td colspan="6" style="padding:12px 14px;color:#aaa;font-style:italic;font-size:12px;">No exercises yet — click Edit program to add</td></tr></tbody>
+        </table>
+        <div style="padding:8px 14px;border-top:0.5px dashed #e0e0e0;"><span style="font-size:11px;color:#aaa;">+ Add exercise</span></div>
+      </div>
+      <div style="border:0.5px solid #e0e0e0;border-radius:10px;overflow:hidden;">
+        <div style="padding:9px 14px;border-bottom:0.5px solid #e0e0e0;display:flex;justify-content:space-between;background:#fafafa;"><p style="font-size:12px;font-weight:500;margin:0;">Workout B</p><span style="font-size:11px;color:#888;">0 exercises</span></div>
+        <table style="width:100%;font-size:12px;table-layout:fixed;">
+          <thead><tr style="background:#f5f5f5;"><th style="text-align:left;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:30%;">Muscle group</th><th style="text-align:left;padding:6px 10px;font-weight:500;color:#888;font-size:11px;width:15%;">Category</th><th style="text-align:left;padding:6px 10px;font-weight:500;color:#888;font-size:11px;width:25%;">Exercise</th><th style="text-align:center;padding:6px 8px;font-weight:500;color:#888;font-size:11px;width:10%;">Sets</th><th style="text-align:center;padding:6px 8px;font-weight:500;color:#888;font-size:11px;width:10%;">Reps</th><th style="text-align:right;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:10%;">Weight</th></tr></thead>
+          <tbody><tr><td colspan="6" style="padding:12px 14px;color:#aaa;font-style:italic;font-size:12px;">No exercises yet — click Edit program to add</td></tr></tbody>
+        </table>
+        <div style="padding:8px 14px;border-top:0.5px dashed #e0e0e0;"><span style="font-size:11px;color:#aaa;">+ Add exercise</span></div>
+      </div>
+      <div style="border:0.5px solid #e0e0e0;border-radius:10px;overflow:hidden;">
+        <div style="padding:9px 14px;border-bottom:0.5px solid #e0e0e0;display:flex;justify-content:space-between;background:#fafafa;"><p style="font-size:12px;font-weight:500;margin:0;">Workout C</p><span style="font-size:11px;color:#888;">0 exercises</span></div>
+        <table style="width:100%;font-size:12px;table-layout:fixed;">
+          <thead><tr style="background:#f5f5f5;"><th style="text-align:left;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:30%;">Muscle group</th><th style="text-align:left;padding:6px 10px;font-weight:500;color:#888;font-size:11px;width:15%;">Category</th><th style="text-align:left;padding:6px 10px;font-weight:500;color:#888;font-size:11px;width:25%;">Exercise</th><th style="text-align:center;padding:6px 8px;font-weight:500;color:#888;font-size:11px;width:10%;">Sets</th><th style="text-align:center;padding:6px 8px;font-weight:500;color:#888;font-size:11px;width:10%;">Reps</th><th style="text-align:right;padding:6px 14px;font-weight:500;color:#888;font-size:11px;width:10%;">Weight</th></tr></thead>
+          <tbody><tr><td colspan="6" style="padding:12px 14px;color:#aaa;font-style:italic;font-size:12px;">No exercises yet — click Edit program to add</td></tr></tbody>
+        </table>
+        <div style="padding:8px 14px;border-top:0.5px dashed #e0e0e0;"><span style="font-size:11px;color:#aaa;">+ Add exercise</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>
