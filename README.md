@@ -35,6 +35,8 @@ node scripts/seed.mjs  # seed test data (emulator must be running)
 
 See [TESTING.md](./TESTING.md) for full test guide, accounts, and commands.
 
+Full project spec, phases, bugs, and wishlist → [PROJECT.md](./PROJECT.md)
+
 ```bash
 npm run e2e    # Playwright E2E (requires emulator + dev:local running)
 npm run test   # Vitest unit tests
