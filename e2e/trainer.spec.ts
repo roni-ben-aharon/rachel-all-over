@@ -331,3 +331,28 @@ test('clicking client updates header with correct name and frequency', async ({ 
   await expect(header.getByText('Roni Ben Aharon')).toBeVisible({ timeout: 5000 })
   await expect(header.getByText(/3x \/ week/)).toBeVisible()
 })
+
+// ── 20. Delete workout then cancel → no change in Firestore ──────────────────
+test('delete workout in edit mode then cancel → workout count unchanged', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.getByRole('button', { name: 'Edit program' }).click()
+  await expect(page.getByTitle('Remove workout')).toHaveCount(3, { timeout: 3000 })
+
+  // Delete Workout C (last trash button)
+  await page.getByTitle('Remove workout').last().click()
+  // Should visually disappear in draft
+  await expect(page.locator('[data-testid="workout-card"]')).toHaveCount(2, { timeout: 3000 })
+
+  // Cancel — should restore all 3 workouts (no Firestore write happened)
+  await page.getByRole('button', { name: 'Cancel' }).click()
+  await waitForWorkoutCount(page, 3)
+  await expect(page.getByText('Workout C').first()).toBeVisible()
+
+  // Reload page to confirm Firestore was never touched
+  await page.reload()
+  await page.waitForURL('**/dashboard', { timeout: 5000 })
+  await selectClient(page, 'Ofir Inbar', 3)
+  await expect(page.getByText('Workout C').first()).toBeVisible()
+})

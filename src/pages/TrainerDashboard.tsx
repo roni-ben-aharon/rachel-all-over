@@ -107,6 +107,7 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
   const [editMode, setEditMode] = useState(false)
   const [draftExercises, setDraftExercises] = useState<Record<string, Exercise[]>>({})
   const [persistedExercises, setPersistedExercises] = useState<Record<string, Exercise[]>>({})
+  const [deletedWorkoutIds, setDeletedWorkoutIds] = useState<Set<string>>(new Set())
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState('')
 
@@ -158,6 +159,7 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
   function cancelEdit() {
     setEditMode(false)
     setDraftExercises({})
+    setDeletedWorkoutIds(new Set())
   }
 
   function updateDraft(workoutId: string, exercises: Exercise[]) {
@@ -168,7 +170,18 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
     setSaving(true)
     setSaveError('')
     try {
-      for (const w of workouts) {
+      // Execute deferred workout deletions
+      for (const workoutId of deletedWorkoutIds) {
+        await deleteDoc(doc(db, 'workouts', workoutId))
+      }
+      if (deletedWorkoutIds.size > 0 && activeClientId && selectedClient) {
+        const newDays = Math.max(1, selectedClient.daysPerWeek - deletedWorkoutIds.size)
+        await updateDoc(doc(db, 'clients', activeClientId), { daysPerWeek: newDays })
+      }
+
+      // Save exercises for remaining workouts (validate first)
+      const remainingWorkouts = workouts.filter(w => !deletedWorkoutIds.has(w.id))
+      for (const w of remainingWorkouts) {
         const exercises = draftExercises[w.id] ?? w.exercises
         const unnamed = exercises.filter(ex => !ex.name.trim())
         if (unnamed.length > 0) {
@@ -184,14 +197,14 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
         }
         await updateDoc(doc(db, 'workouts', w.id), { exercises, updatedAt: serverTimestamp() })
       }
-      // Persist exercises locally so they survive client switches even before onSnapshot re-fires
+      // Persist exercises locally so they survive client switches before onSnapshot re-fires
       const saved: Record<string, Exercise[]> = {}
-      for (const w of workouts) {
+      for (const w of remainingWorkouts) {
         saved[w.id] = draftExercises[w.id] ?? w.exercises
       }
       setPersistedExercises(prev => ({ ...prev, ...saved }))
+      setDeletedWorkoutIds(new Set())
       setEditMode(false)
-      // Don't clear draftExercises here — WorkoutCard uses draft as fallback until onSnapshot fires
     } catch (err: any) {
       setSaveError(err?.message ?? 'Save failed')
     }
@@ -200,8 +213,9 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
 
   async function handleAddWorkout() {
     if (!program || !selectedClient || !activeClientId) return
-    if (workouts.length >= 5) return
-    const newOrder = workouts.length
+    const visibleCount = workouts.filter(w => !deletedWorkoutIds.has(w.id)).length
+    if (visibleCount >= 5) return
+    const newOrder = visibleCount
     await addDoc(collection(db, 'workouts'), {
       programId: program.id,
       clientId: activeClientId,
@@ -212,13 +226,10 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
     await updateDoc(doc(db, 'clients', activeClientId), { daysPerWeek: workouts.length + 1 })
   }
 
-  async function handleDeleteWorkout(workoutId: string) {
-    if (!activeClientId || !selectedClient) return
-    await deleteDoc(doc(db, 'workouts', workoutId))
-    const newDays = Math.max(1, selectedClient.daysPerWeek - 1)
-    await updateDoc(doc(db, 'clients', activeClientId), { daysPerWeek: newDays })
+  // Mark workout for deletion — actual Firestore delete deferred to handleSave
+  function handleDeleteWorkout(workoutId: string) {
+    setDeletedWorkoutIds(prev => new Set([...prev, workoutId]))
     setDraftExercises(prev => { const next = { ...prev }; delete next[workoutId]; return next })
-    setPersistedExercises(prev => { const next = { ...prev }; delete next[workoutId]; return next })
   }
 
   async function handleNewProgram() {
@@ -368,7 +379,7 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
 
             {/* Workout cards */}
             <div className="flex-1 overflow-y-auto p-5 flex flex-col gap-4">
-              {workouts.map(w => (
+              {workouts.filter(w => !deletedWorkoutIds.has(w.id)).map(w => (
                 <WorkoutCard
                   key={w.id}
                   workout={w}
@@ -382,7 +393,7 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
               {workouts.length === 0 && !editMode && (
                 <p className="text-xs text-gray-400 text-center py-8">No workouts yet</p>
               )}
-              {editMode && workouts.length < 5 && (
+              {editMode && workouts.filter(w => !deletedWorkoutIds.has(w.id)).length < 5 && (
                 <button
                   onClick={handleAddWorkout}
                   className="w-full text-xs py-3 border border-dashed border-gray-300 rounded-xl text-gray-500 hover:border-gray-400 hover:text-gray-700"

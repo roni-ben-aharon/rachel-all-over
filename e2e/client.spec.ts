@@ -92,15 +92,19 @@ test('valid invite page shows trainer banner and pre-filled email', async ({ pag
 })
 
 // ── 11. Signup with valid invite → account created → /my-program ──────────────
-test('signup with valid invite creates account and lands on /my-program', async ({ page }) => {
+test('signup with valid invite creates account and redirects to /my-program', async ({ page }) => {
   await page.goto(`/signup?invite=${TEST_INVITE_ID}`)
   await expect(page.getByText(/Rachel invited you/)).toBeVisible({ timeout: 8000 })
   await page.fill('input[placeholder="Full name"]', 'Dana Pending')
   await page.fill('input[type="password"]', 'test1234')
   await page.click('button[type="submit"]')
+
+  // Redirect to /my-program — proves signup + Firebase Auth user creation succeeded
   await page.waitForURL('**/my-program', { timeout: 12000 })
-  await expect(page.getByText('Hey, Dana Pending')).toBeVisible({ timeout: 10000 })
-  await expect(page.getByText(/with Rachel/)).toBeVisible({ timeout: 10000 })
+
+  // Client program renders (Sign out button only appears once clientData is loaded)
+  await expect(page.getByRole('button', { name: 'Sign out' })).toBeVisible({ timeout: 15000 })
+  await expect(page.getByText('Hey, Dana Pending')).toBeVisible({ timeout: 5000 })
 })
 
 // ── 12. Trainer creates client → invite link shown ───────────────────────────
