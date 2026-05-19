@@ -178,34 +178,36 @@ Success:          #1D9E75
 
 ---
 
-## Phase 2 — Sessions + Client Experience 🔄
+## Phase 2 — Sessions + Client Experience ✅
 
-**Status: Partially complete**
+**Status: Built + emulator-tested. Not yet tested on production.**
 
 **Done:**
 - Client signup via invite link (`/signup?invite={id}`)
 - Client view (`/my-program`) — read-only program, collapse/expand cards
 - Role-based routing (trainer → `/dashboard`, client → `/my-program`)
 - Invite creation in Add Client modal
-
-**Not yet built:**
-- Session flow (`/session/:clientId/:workoutId`)
-- End session modal (Yes/No update program toggle)
-- Session history panel on dashboard
-- `/my-progress` placeholder page
+- Session flow (`/session/:clientId/:workoutId`) — pure logging, never modifies program
+- Editable session table pre-filled from program, localStorage autosave + resume draft banner
+- Previous session collapsible panel (read-only, per workout)
+- End session modal → saves to `workoutSessions/{id}`, clears draft, returns to dashboard
+- Session history panel via ··· menu on dashboard
+- `/my-progress` page (client view, uses `ClientProgress.tsx` + `ProgressChart`)
 
 **New routes:**
 ```
 /signup?invite={inviteId}      → Client signup
 /session/:clientId/:workoutId  → Session page (trainer)
 /my-program                    → Client program view
-/my-progress                   → Progress placeholder
+/my-progress                   → Client progress view
 ```
 
 **Session flow summary:**
-- "Start session" button on dashboard (next to "Edit program")
-- Full screen session page with amber banner
-- On end: creates `workoutSessions/{id}` doc always; if trainer says "Yes" → also overwrites `workouts/{id}.exercises`
+- "Start session" button on each workout card (read mode only, amber styling)
+- Full-screen session page: amber banner, previous session (collapsible), today's editable table
+- localStorage autosave on every change; resume/discard banner on re-entry if draft exists
+- Sessions are **pure logging** — `workoutSessions/{id}` only, `workouts` collection never touched
+- Session history panel accessible via ··· menu, grouped by workout
 
 ---
 

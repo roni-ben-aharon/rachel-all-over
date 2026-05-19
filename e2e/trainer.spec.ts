@@ -356,3 +356,299 @@ test('delete workout in edit mode then cancel → workout count unchanged', asyn
   await selectClient(page, 'Ofir Inbar', 3)
   await expect(page.getByText('Workout C').first()).toBeVisible()
 })
+
+// ── 21. Start session button ──────────────────────────────────────────────────
+test('Start session button visible in read mode, hidden in edit mode', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  // Read mode: one Start session button per workout card
+  await expect(page.locator('[data-testid="start-session-btn"]')).toHaveCount(3, { timeout: 5000 })
+
+  // Edit mode: Start session buttons replaced by trash buttons
+  await page.getByRole('button', { name: 'Edit program' }).click()
+  await expect(page.locator('[data-testid="start-session-btn"]')).toHaveCount(0)
+  await expect(page.getByTitle('Remove workout')).toHaveCount(3)
+
+  // Cancel → buttons back
+  await page.getByRole('button', { name: 'Cancel' }).click()
+  await expect(page.locator('[data-testid="start-session-btn"]')).toHaveCount(3, { timeout: 3000 })
+})
+
+test('Start session button navigates to session URL', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+})
+
+test('Session page renders amber banner and workout label', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  // Amber banner visible
+  await expect(page.getByText('Session in progress')).toBeVisible({ timeout: 5000 })
+
+  // Workout label loaded
+  const label = page.locator('[data-testid="session-workout-label"]')
+  await expect(label).toBeVisible({ timeout: 5000 })
+  await expect(label).toContainText('Workout')
+})
+
+test('Session page cancel returns to dashboard', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  await page.locator('[data-testid="cancel-session-btn"]').click()
+  await expect(page).toHaveURL(/\/dashboard/, { timeout: 5000 })
+})
+
+test('Session table pre-filled from program exercises', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  // Click Workout A (first) — has Squat, Romanian Deadlift, Leg Press
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  // Exercises pre-filled — check by placeholder + value
+  const nameInputs = page.locator('input[placeholder="Exercise name *"]')
+  await expect(nameInputs.nth(0)).toHaveValue('Squat', { timeout: 5000 })
+  await expect(nameInputs.nth(1)).toHaveValue('Romanian Deadlift')
+  await expect(nameInputs.nth(2)).toHaveValue('Leg Press')
+})
+
+test('Change indicator updates when session table is edited', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  // Initially "No changes yet"
+  await expect(page.locator('[data-testid="change-indicator"]')).toHaveText('No changes yet', { timeout: 5000 })
+
+  // Edit first exercise name
+  await page.locator('input[placeholder="Exercise name *"]').first().fill('Squat modified')
+
+  // Now shows "Unsaved changes"
+  await expect(page.locator('[data-testid="change-indicator"]')).toHaveText('Unsaved changes')
+})
+
+test('Resume draft banner appears when localStorage draft exists', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  // Navigate to session to get the real workoutId from URL
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  const url = page.url()
+  const workoutId = url.split('/').pop()!
+
+  // Inject a draft into localStorage and navigate back
+  const draft = JSON.stringify([
+    { name: 'Draft Exercise', sets: 5, reps: '5', resistance: { type: 'kg', value: 100 }, notes: '' }
+  ])
+  await page.evaluate(({ key, value }) => localStorage.setItem(key, value), {
+    key: `tracklift:session:${workoutId}`,
+    value: draft,
+  })
+  // Navigate away and back so the component re-mounts and reads localStorage
+  await page.goBack()
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  // Resume banner visible
+  await expect(page.locator('[data-testid="resume-draft-banner"]')).toBeVisible({ timeout: 5000 })
+})
+
+test('Resume draft loads draft exercises', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  const url = page.url()
+  const workoutId = url.split('/').pop()!
+
+  const draft = JSON.stringify([
+    { name: 'Draft Exercise', sets: 5, reps: '5', resistance: { type: 'kg', value: 100 }, notes: '' }
+  ])
+  await page.evaluate(({ key, value }) => localStorage.setItem(key, value), {
+    key: `tracklift:session:${workoutId}`,
+    value: draft,
+  })
+  await page.goBack()
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  await page.locator('[data-testid="resume-draft-btn"]').click()
+
+  // Draft exercise loaded into table
+  await expect(page.locator('input[placeholder="Exercise name *"]').first()).toHaveValue('Draft Exercise', { timeout: 3000 })
+  await expect(page.locator('[data-testid="change-indicator"]')).toHaveText('Unsaved changes')
+})
+
+test('Discard draft loads fresh program exercises', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  const url = page.url()
+  const workoutId = url.split('/').pop()!
+
+  const draft = JSON.stringify([
+    { name: 'Draft Exercise', sets: 5, reps: '5', resistance: { type: 'kg', value: 100 }, notes: '' }
+  ])
+  await page.evaluate(({ key, value }) => localStorage.setItem(key, value), {
+    key: `tracklift:session:${workoutId}`,
+    value: draft,
+  })
+  await page.goBack()
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  await page.locator('[data-testid="discard-draft-btn"]').click()
+
+  // Fresh exercises from program
+  await expect(page.locator('input[placeholder="Exercise name *"]').nth(0)).toHaveValue('Squat', { timeout: 3000 })
+  await expect(page.locator('[data-testid="change-indicator"]')).toHaveText('No changes yet')
+})
+
+test('Previous session: shows no-prev message when no sessions exist', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  // Seed has no workoutSessions → "No previous sessions" shown
+  await expect(page.locator('[data-testid="no-prev-session"]')).toBeVisible({ timeout: 5000 })
+})
+
+test('End session button opens modal', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  await page.locator('[data-testid="end-session-btn"]').click()
+  await expect(page.locator('[data-testid="end-session-modal"]')).toBeVisible()
+})
+
+test('Cancel modal keeps session open', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  await page.locator('[data-testid="end-session-btn"]').click()
+  await expect(page.locator('[data-testid="end-session-modal"]')).toBeVisible()
+
+  await page.locator('[data-testid="end-session-modal"]').getByRole('button', { name: 'Cancel' }).click()
+  await expect(page.locator('[data-testid="end-session-modal"]')).not.toBeVisible()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/)
+})
+
+test('Save session navigates to dashboard and shows prev session on re-entry', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  // Save session
+  await page.locator('[data-testid="end-session-btn"]').click()
+  await page.locator('[data-testid="confirm-save-session-btn"]').click()
+  await expect(page).toHaveURL(/\/dashboard/, { timeout: 8000 })
+
+  // Re-select client (dashboard state resets on navigation)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  // Re-enter same session
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+
+  // Previous session toggle now appears (allow time for Firestore query)
+  await expect(page.locator('[data-testid="prev-session-toggle"]')).toBeVisible({ timeout: 10000 })
+})
+
+test('Session history panel opens from ··· menu', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  // Open ··· menu
+  await page.getByRole('button', { name: '···' }).click()
+  await expect(page.locator('[data-testid="session-history-menu-item"]')).toBeVisible()
+
+  await page.locator('[data-testid="session-history-menu-item"]').click()
+  await expect(page.locator('[data-testid="session-history-panel"]')).toBeVisible()
+})
+
+test('Session history panel closes on ✕ button', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  await page.getByRole('button', { name: '···' }).click()
+  await page.locator('[data-testid="session-history-menu-item"]').click()
+  await expect(page.locator('[data-testid="session-history-panel"]')).toBeVisible()
+
+  await page.locator('[data-testid="close-history-panel"]').click()
+  await expect(page.locator('[data-testid="session-history-panel"]')).not.toBeVisible()
+})
+
+test('Session history panel shows sessions after one is saved', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  // Save a session first
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+  await page.locator('[data-testid="end-session-btn"]').click()
+  await page.locator('[data-testid="confirm-save-session-btn"]').click()
+  await expect(page).toHaveURL(/\/dashboard/, { timeout: 8000 })
+
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  // Open session history
+  await page.getByRole('button', { name: '···' }).click()
+  await page.locator('[data-testid="session-history-menu-item"]').click()
+  await expect(page.locator('[data-testid="session-history-panel"]')).toBeVisible()
+
+  // Workout A sessions listed (no-sessions-msg should NOT be visible)
+  await expect(page.locator('[data-testid="no-sessions-msg"]')).not.toBeVisible({ timeout: 5000 })
+})
+
+test('workout card shows Resume session after draft exists', async ({ page }) => {
+  await login(page)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  // Start session and make a change (triggers autosave to localStorage)
+  await page.locator('[data-testid="start-session-btn"]').first().click()
+  await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
+  await page.locator('input[placeholder="Exercise name *"]').first().fill('Modified squat')
+
+  // Cancel back to dashboard
+  await page.locator('[data-testid="cancel-session-btn"]').click()
+  await expect(page).toHaveURL(/\/dashboard/, { timeout: 5000 })
+
+  // Re-select client so cards re-mount and read fresh localStorage
+  await selectClient(page, 'Roni Ben Aharon', 2)
+  await selectClient(page, 'Ofir Inbar', 3)
+
+  // First workout card now shows "Resume session"
+  await expect(page.locator('[data-testid="start-session-btn"]').first()).toHaveText('Resume session')
+})

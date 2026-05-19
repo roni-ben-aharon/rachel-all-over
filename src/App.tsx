@@ -8,6 +8,8 @@ import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
 import { TrainerDashboard } from './pages/TrainerDashboard'
 import { ClientProgram } from './pages/ClientProgram'
+import { ClientProgress } from './pages/ClientProgress'
+import { WorkoutSession } from './pages/WorkoutSession'
 import { Client } from './types'
 
 function AppRoutes() {
@@ -68,6 +70,9 @@ function AppRoutes() {
             trainerEmail={user.email ?? ''}
           />
         } />
+        <Route path="/session/:clientId/:workoutId" element={
+          <WorkoutSession trainerId={trainerId ?? user.uid} />
+        } />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
     )
@@ -85,6 +90,9 @@ function AppRoutes() {
       <Routes>
         <Route path="/my-program" element={
           <ClientProgram client={clientData} trainerName={clientTrainerName} />
+        } />
+        <Route path="/my-progress" element={
+          <ClientProgress client={clientData} trainerName={clientTrainerName} />
         } />
         <Route path="*" element={<Navigate to="/my-program" replace />} />
       </Routes>

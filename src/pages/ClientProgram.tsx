@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { signOut } from 'firebase/auth'
 import { auth } from '../lib/firebase'
 import { useActiveProgram, useWorkouts } from '../hooks/useWorkouts'
@@ -37,6 +38,7 @@ function WorkoutCard({ label, exercises }: { label: string; exercises: Exercise[
 }
 
 export function ClientProgram({ client, trainerName }: Props) {
+  const navigate = useNavigate()
   const { program } = useActiveProgram(client.id)
   const { workouts } = useWorkouts(program?.id ?? null)
 
@@ -58,6 +60,13 @@ export function ClientProgram({ client, trainerName }: Props) {
         <div className="flex items-center gap-2">
           <button className="text-xs px-3 py-1.5 bg-gray-900 text-white rounded-md">
             My program
+          </button>
+          <button
+            onClick={() => navigate('/my-progress')}
+            className="text-xs px-3 py-1.5 border border-gray-200 rounded-md hover:bg-gray-50"
+            data-testid="my-progress-btn"
+          >
+            My progress
           </button>
           <button
             onClick={() => signOut(auth)}

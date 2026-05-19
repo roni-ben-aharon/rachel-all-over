@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { doc, updateDoc, addDoc, deleteDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { signOut } from 'firebase/auth'
 import { db, auth } from '../lib/firebase'
@@ -7,6 +8,7 @@ import { useActiveProgram, useWorkouts } from '../hooks/useWorkouts'
 import { WorkoutTable } from '../components/trainer/WorkoutTable'
 import { WorkoutTableEdit } from '../components/trainer/WorkoutTableEdit'
 import { AddClientModal } from '../components/trainer/AddClientModal'
+import { SessionHistoryPanel } from '../components/trainer/SessionHistoryPanel'
 import { Exercise, Workout } from '../types'
 
 const WORKOUT_LABELS = ['Workout A', 'Workout B', 'Workout C', 'Workout D', 'Workout E']
@@ -37,7 +39,7 @@ function ChevronIcon({ open }: { open: boolean }) {
 }
 
 function WorkoutCard({
-  workout, editMode, draft, persisted, onDraftChange, onDelete,
+  workout, editMode, draft, persisted, onDraftChange, onDelete, onStartSession,
 }: {
   workout: Workout
   editMode: boolean
@@ -45,8 +47,10 @@ function WorkoutCard({
   persisted: Exercise[] | null
   onDraftChange: (workoutId: string, exercises: Exercise[]) => void
   onDelete: (workoutId: string) => void
+  onStartSession: (workoutId: string) => void
 }) {
   const [open, setOpen] = useState(true)
+  const hasDraft = !!localStorage.getItem(`tracklift:session:${workout.id}`)
 
   // Priority: Firestore snapshot > persisted save > draft > empty
   const exercises = editMode
@@ -64,13 +68,21 @@ function WorkoutCard({
           <p className="text-xs font-medium">{workout.label}</p>
           <span className="text-xs text-gray-400">{exercises.length} exercises</span>
         </button>
-        {editMode && (
+        {editMode ? (
           <button
             onClick={() => onDelete(workout.id)}
             className="ml-3 text-xs text-red-400 hover:text-red-600 px-1"
             title="Remove workout"
           >
             🗑
+          </button>
+        ) : (
+          <button
+            onClick={() => onStartSession(workout.id)}
+            className={`ml-3 text-xs px-2.5 py-1 rounded-md whitespace-nowrap ${hasDraft ? 'bg-amber-500 text-white hover:bg-amber-600' : 'border border-amber-300 text-amber-700 hover:bg-amber-50'}`}
+            data-testid="start-session-btn"
+          >
+            {hasDraft ? 'Resume session' : 'Start session'}
           </button>
         )}
       </div>
@@ -97,10 +109,12 @@ interface Props {
 }
 
 export function TrainerDashboard({ trainerId, trainerName }: Props) {
+  const navigate = useNavigate()
   const { clients } = useClients(trainerId)
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null)
   const [showAddClient, setShowAddClient] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
+  const [showSessionHistory, setShowSessionHistory] = useState(false)
   const [showNewProgramModal, setShowNewProgramModal] = useState(false)
   const [newProgramName, setNewProgramName] = useState('')
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
@@ -115,7 +129,7 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
   const activeClientId = selectedClient?.id ?? null
 
   const { program } = useActiveProgram(activeClientId)
-  const { workouts, loading: workoutsLoading, loadedFor: workoutsLoadedFor } = useWorkouts(program?.id ?? null)
+  const { workouts, loadedFor: workoutsLoadedFor } = useWorkouts(program?.id ?? null)
 
   // Seed missing workout slots when a program first loads with no workouts.
   // Fires only when workoutsLoadedFor changes (i.e. when we switch to a different program),
@@ -148,6 +162,11 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
   const lastUpdatedStr = lastUpdated
     ? lastUpdated.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
     : null
+
+  function handleStartSession(workoutId: string) {
+    if (!activeClientId) return
+    navigate(`/session/${activeClientId}/${workoutId}`)
+  }
 
   function startEdit() {
     const draft: Record<string, Exercise[]> = {}
@@ -362,6 +381,13 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
                           >
                             New program
                           </button>
+                          <button
+                            onClick={() => { setShowSessionHistory(true); setShowMenu(false) }}
+                            className="w-full text-left text-xs px-4 py-2 hover:bg-gray-50"
+                            data-testid="session-history-menu-item"
+                          >
+                            Session history
+                          </button>
                           <div className="border-t border-gray-100 my-1" />
                           <button
                             onClick={() => { setShowDeleteConfirm(true); setShowMenu(false) }}
@@ -388,6 +414,7 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
                   persisted={persistedExercises[w.id] ?? null}
                   onDraftChange={updateDraft}
                   onDelete={handleDeleteWorkout}
+                  onStartSession={handleStartSession}
                 />
               ))}
               {workouts.length === 0 && !editMode && (
@@ -478,6 +505,15 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
             </div>
           </div>
         </div>
+      )}
+
+      {showSessionHistory && selectedClient && (
+        <SessionHistoryPanel
+          clientId={selectedClient.id}
+          clientName={selectedClient.name}
+          workouts={workouts}
+          onClose={() => setShowSessionHistory(false)}
+        />
       )}
     </div>
   )

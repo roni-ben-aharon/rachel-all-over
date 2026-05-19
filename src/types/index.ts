@@ -54,6 +54,15 @@ export interface Exercise {
   technique?: string
 }
 
+export interface WorkoutSession {
+  id: string
+  workoutId: string
+  clientId: string
+  trainerId: string
+  createdAt: unknown
+  exercises: Exercise[]
+}
+
 export interface WorkoutVersion {
   id: string
   workoutId: string

@@ -127,3 +127,16 @@ test('trainer creates client → invite link shown in modal', async ({ page }) =
   expect(link).toContain('/signup?invite=')
   await expect(page.getByText('Client created!')).toBeVisible()
 })
+
+// ── My progress navigation ────────────────────────────────────────────────────
+test('client has My progress button', async ({ page }) => {
+  await loginAsClient(page, OFIR.email, OFIR.password)
+  await expect(page.locator('[data-testid="my-progress-btn"]')).toBeVisible({ timeout: 5000 })
+})
+
+test('My progress button navigates to /my-progress', async ({ page }) => {
+  await loginAsClient(page, OFIR.email, OFIR.password)
+  await page.locator('[data-testid="my-progress-btn"]').click()
+  await expect(page).toHaveURL(/\/my-progress/, { timeout: 5000 })
+  await expect(page.getByText('My progress')).toBeVisible()
+})
