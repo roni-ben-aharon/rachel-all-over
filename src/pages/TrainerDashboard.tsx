@@ -39,7 +39,7 @@ function ChevronIcon({ open }: { open: boolean }) {
 }
 
 function WorkoutCard({
-  workout, editMode, draft, persisted, onDraftChange, onDelete, onStartSession,
+  workout, editMode, draft, persisted, onDraftChange, onDelete, onStartSession, blocked,
 }: {
   workout: Workout
   editMode: boolean
@@ -48,6 +48,7 @@ function WorkoutCard({
   onDraftChange: (workoutId: string, exercises: Exercise[]) => void
   onDelete: (workoutId: string) => void
   onStartSession: (workoutId: string) => void
+  blocked: boolean
 }) {
   const [open, setOpen] = useState(true)
   const hasDraft = !!localStorage.getItem(`tracklift:session:${workout.id}`)
@@ -79,7 +80,15 @@ function WorkoutCard({
         ) : (
           <button
             onClick={() => onStartSession(workout.id)}
-            className={`ml-3 text-xs px-2.5 py-1 rounded-md whitespace-nowrap ${hasDraft ? 'bg-amber-500 text-white hover:bg-amber-600' : 'border border-amber-300 text-amber-700 hover:bg-amber-50'}`}
+            disabled={blocked && !hasDraft}
+            title={blocked && !hasDraft ? 'End the active session before starting a new one' : undefined}
+            className={`ml-3 text-xs px-2.5 py-1 rounded-md whitespace-nowrap ${
+              blocked && !hasDraft
+                ? 'border border-gray-200 text-gray-300 cursor-not-allowed'
+                : hasDraft
+                  ? 'bg-amber-500 text-white hover:bg-amber-600'
+                  : 'border border-amber-300 text-amber-700 hover:bg-amber-50'
+            }`}
             data-testid="start-session-btn"
           >
             {hasDraft ? 'Resume session' : 'Start session'}
@@ -163,8 +172,21 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
     ? lastUpdated.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
     : null
 
+  const activeSessionWorkoutId = (() => {
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i)
+      if (key?.startsWith('tracklift:session:')) return key.slice('tracklift:session:'.length)
+    }
+    return null
+  })()
+
   function handleStartSession(workoutId: string) {
     if (!activeClientId) return
+    if (activeSessionWorkoutId && activeSessionWorkoutId !== workoutId) {
+      setSaveError('Another session is already active. End or discard it first.')
+      return
+    }
+    setSaveError('')
     navigate(`/session/${activeClientId}/${workoutId}`)
   }
 
@@ -415,6 +437,7 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
                   onDraftChange={updateDraft}
                   onDelete={handleDeleteWorkout}
                   onStartSession={handleStartSession}
+                  blocked={!!activeSessionWorkoutId && activeSessionWorkoutId !== w.id}
                 />
               ))}
               {workouts.length === 0 && !editMode && (

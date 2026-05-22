@@ -213,13 +213,31 @@ Success:          #1D9E75
 
 ## Phase 3 — Power Features 📋
 
-**Status: Not started**
+**Status: In progress — Exercise library**
+
+**Feature specs:**
+- Exercise library → `FEATURE-exercise-library.md` + `docs/screens-phase3.html`
+
+### Exercise library build plan
+
+| Step | What | Status |
+|------|------|--------|
+| 1 | Types + seed script + `exercises.json` | ✅ Done |
+| 2 | `useExerciseLibrary` hook | ✅ Done |
+| 3+4 | `ExerciseCombobox` + `AddToLibraryModal` | 🔴 |
+| 5 | Wire combobox into `WorkoutTableEdit` | 🔴 |
+| 6 | Wire combobox into `WorkoutSession` | 🔴 |
+| 7a | `Library.tsx` — table + filter pills (display only) | 🔴 |
+| 7b | Library — inline row edit | 🔴 |
+| 7c | Library — search + pagination | 🔴 |
+| 8 | Sidebar link + `/library` route | 🔴 |
+
+### Other Phase 3 features
 
 1. **Progress graphs** — Recharts LineChart, one line per exercise, volume (sets × reps × weight)
 2. **CSV import** — drag & drop .csv/.xlsx → preview → confirm → save to Firestore
-3. **Exercise library** — pre-seeded from `exercises.json`, combobox in edit mode with autocomplete + auto-fill muscle group/category
-4. **Multiple trainers** — already supported by data model, no UI needed
-5. **Soft delete** — `deleted: boolean` already in data model, just filter in queries
+3. ~~**Multiple trainers**~~ — skipped, data model already supports it if needed later
+4. **Soft delete** — `deleted: boolean` already in data model, just filter in queries
 
 ---
 
@@ -264,5 +282,8 @@ Features not yet in any phase — ideas to revisit later.
 | W4 | Notes per client (not per exercise) | General trainer notes / goals for each client |
 | W5 | Dark mode | — |
 | W6 | Mobile app (React Native) | Clients log in on their phone during session |
+| W7 | Health declaration management | Clients fill out health declarations; trainer can view/track per client |
+| W8 | Calendar integration | Session scheduling / booking — exact approach TBD |
+| W9 | Monthly summary | End-of-month report per client: sessions completed, volume, progress highlights |
 
 > Add new wishes here — move to a Phase when ready to build.

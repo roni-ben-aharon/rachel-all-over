@@ -8,6 +8,28 @@ process.env.FIRESTORE_EMULATOR_HOST = 'localhost:8080'
 
 import { initializeApp } from 'firebase-admin/app'
 import { getFirestore } from 'firebase-admin/firestore'
+import { readFileSync } from 'fs'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const EXERCISES_JSON = JSON.parse(readFileSync(join(__dirname, 'exercises.json'), 'utf8'))
+
+const BODYWEIGHT_PATTERNS = [
+  /pull.?up/i, /chin.?up/i, /push.?up/i, /\bdips\b/i, /plank/i,
+  /^bw\s/i, /\btrx\b/i, /lying leg raise/i, /hanging leg raise/i,
+  /straight leg raise/i, /\bv.up/i, /\bhollow\b/i, /decline sit.?up/i,
+  /ab wheel/i, /lying bird.?dog/i, /superman/i, /box climb/i,
+  /negative nordic/i, /bulgarian split squat/i, /cossack squat/i,
+  /single.?leg glute bridge/i, /negative incline push/i,
+]
+const BAND_PATTERNS = [/standing hip ext/i, /^face pull$/i, /pallof press/i]
+
+function guessResistanceType(name) {
+  if (BAND_PATTERNS.some(p => p.test(name))) return 'band'
+  if (BODYWEIGHT_PATTERNS.some(p => p.test(name))) return 'bodyweight'
+  return 'kg'
+}
 
 const app = initializeApp({ projectId: 'rachel-all-over' })
 const db = getFirestore(app)
@@ -52,7 +74,7 @@ async function seed() {
 
   await clearAuthUsers()
   console.log('  cleared auth users')
-  for (const col of ['trainers', 'clients', 'programs', 'workouts', 'invites']) {
+  for (const col of ['trainers', 'clients', 'programs', 'workouts', 'invites', 'exerciseLibrary']) {
     await clearCollection(col)
   }
 
@@ -142,6 +164,22 @@ async function seed() {
     trainerName: 'Rachel',
   })
   console.log('  pending client: dana@test.com (invite: test-invite-001)')
+
+  // Exercise library
+  const libBatch = db.batch()
+  for (const ex of EXERCISES_JSON) {
+    const ref = db.collection('exerciseLibrary').doc()
+    libBatch.set(ref, {
+      name: ex.name,
+      muscleGroup: ex.muscleGroup,
+      category: ex.category,
+      defaultResistanceType: guessResistanceType(ex.name),
+      createdBy: 'system',
+      createdAt: new Date(),
+    })
+  }
+  await libBatch.commit()
+  console.log(`\n  exerciseLibrary: ${EXERCISES_JSON.length} exercises seeded`)
 
   console.log('\n✅ Done. Emulator UI: http://localhost:4000')
   process.exit(0)

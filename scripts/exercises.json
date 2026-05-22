@@ -1,0 +1,644 @@
+[
+  {
+    "name": "Pull up",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Db/Bb Deadlift",
+    "muscleGroup": "Hamstring",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Db Incline bench press",
+    "muscleGroup": "Chest",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Box climb",
+    "muscleGroup": "Quadriceps",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Face Pulls",
+    "muscleGroup": "Shoulders",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "KTB Front raises",
+    "muscleGroup": "Shoulders",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Plank",
+    "muscleGroup": "Core",
+    "category": "Anti-extension",
+    "createdBy": "system"
+  },
+  {
+    "name": "Db/Bb Squat",
+    "muscleGroup": "Quadriceps",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Bb Bench press",
+    "muscleGroup": "Chest",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Machine Narrow Row",
+    "muscleGroup": "Back",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Db Wide Shoulder Press",
+    "muscleGroup": "Shoulders",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Db Single leg Glute Bridge",
+    "muscleGroup": "Glutes",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB Lateral Raises",
+    "muscleGroup": "Shoulders",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lying Leg Raises",
+    "muscleGroup": "Core",
+    "category": "Dynamic",
+    "createdBy": "system"
+  },
+  {
+    "name": "BB Squat",
+    "muscleGroup": "Quadriceps",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Shoulder press + hold press",
+    "muscleGroup": "Shoulders",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "BW Single-Leg Deadlift",
+    "muscleGroup": "Hamstring",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "KTB Single Bent Over Row",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Bb Hip Thrust",
+    "muscleGroup": "Glutes",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Incline Db Chest Press + hold press",
+    "muscleGroup": "Chest",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lying leg raises + Magic",
+    "muscleGroup": "Core",
+    "category": "Dynamic",
+    "createdBy": "system"
+  },
+  {
+    "name": "V-ups",
+    "muscleGroup": "Core",
+    "category": "Dynamic",
+    "createdBy": "system"
+  },
+  {
+    "name": "Cossack Squat",
+    "muscleGroup": "Quadriceps",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Shoulder hold raise+front raises",
+    "muscleGroup": "Shoulders",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Bb Deadlift",
+    "muscleGroup": "Hamstring",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Machine seated cable row",
+    "muscleGroup": "Back",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Standing Hip extention",
+    "muscleGroup": "Glutes",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Chest Press",
+    "muscleGroup": "Chest",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Side Plank",
+    "muscleGroup": "Core",
+    "category": "Anti lateral-flexion",
+    "createdBy": "system"
+  },
+  {
+    "name": "Single-Leg Glute Bridge on the floor + double",
+    "muscleGroup": "Glutes",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lying Bird-Dog / Superman",
+    "muscleGroup": "Lower Back",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Chin up",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "BB RDL",
+    "muscleGroup": "Hamstring",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB/BB/Single Shoulder Press",
+    "muscleGroup": "Shoulders",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Crunches with plate",
+    "muscleGroup": "Core",
+    "category": "Anti-extension",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB/BB/Single Chest Press",
+    "muscleGroup": "Chest",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "V-Up",
+    "muscleGroup": "Core",
+    "category": "Anti-rotation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Wide Push up",
+    "muscleGroup": "Chest",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB Squats",
+    "muscleGroup": "Quadriceps",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Hip Thrust",
+    "muscleGroup": "Glutes",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Narrow Lat Pulldown",
+    "muscleGroup": "Back",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lateral&Front Raises",
+    "muscleGroup": "Shoulders",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Cable Triceps Extension",
+    "muscleGroup": "Triceps",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lying Leg Raises+hip jump",
+    "muscleGroup": "Core",
+    "category": "Dynamic",
+    "createdBy": "system"
+  },
+  {
+    "name": "Incline TRX Row",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lat Pulldown",
+    "muscleGroup": "Back",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Single/DB/BB Bent Over Row",
+    "muscleGroup": "Back",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lying Pull Over",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Single DB Skullcrushers",
+    "muscleGroup": "Triceps",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Hanging leg raises",
+    "muscleGroup": "Core",
+    "category": "advanced",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB Kickback / Pully Triceps Extention",
+    "muscleGroup": "Triceps",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Incline Single/DB Bench Press",
+    "muscleGroup": "Chest",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Push Ups",
+    "muscleGroup": "Chest",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Dips",
+    "muscleGroup": "Chest",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Bb Biceps Curl",
+    "muscleGroup": "Biceps",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "KTB Russion Twist",
+    "muscleGroup": "Core",
+    "category": "advanced",
+    "createdBy": "system"
+  },
+  {
+    "name": "Db Hammer Curl",
+    "muscleGroup": "Biceps",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Knee Extention machine",
+    "muscleGroup": "Legs",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Negative Nordics",
+    "muscleGroup": "Hamstring",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Bb Shoulder Press",
+    "muscleGroup": "Shouders",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Shoulder front raises",
+    "muscleGroup": "Shouders",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Bridge-Knee Extension",
+    "muscleGroup": "Hamstring",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Ab Wheel Rollout",
+    "muscleGroup": "Core",
+    "category": "Anti-extension",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB/BB Chest Press",
+    "muscleGroup": "Chest",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lateral Rotation",
+    "muscleGroup": "Shoulders",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Pallof Press",
+    "muscleGroup": "Core",
+    "category": "Anti-rotation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Pullover on bench",
+    "muscleGroup": "Back",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lying Leg Raises&Magic",
+    "muscleGroup": "Core",
+    "category": "Dynamic",
+    "createdBy": "system"
+  },
+  {
+    "name": "Single Leg Glute Bridge",
+    "muscleGroup": "Glutes",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "KTB Side Bend",
+    "muscleGroup": "Core",
+    "category": "Anti lateral-flexion",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB Shoulder Raises",
+    "muscleGroup": "Shoulders",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Hollow",
+    "muscleGroup": "Core",
+    "category": "Anti-extension",
+    "createdBy": "system"
+  },
+  {
+    "name": "Wide Lat Pulldown",
+    "muscleGroup": "Back",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB Triceps Extension",
+    "muscleGroup": "Triceps",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lying Bird Dog",
+    "muscleGroup": "Core",
+    "category": "Anti-rotation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Bulgarian Split Squat",
+    "muscleGroup": "Quadriceps",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB Chest Fly",
+    "muscleGroup": "Chest",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Straight Arm Pulldown",
+    "muscleGroup": "Shoulders",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Decline Sit Up",
+    "muscleGroup": "Core",
+    "category": "Dynamic",
+    "createdBy": "system"
+  },
+  {
+    "name": "Plank Shoulder Tap",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Cable Face Pull",
+    "muscleGroup": "Shoulders",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Pull Ups",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB/BB Bench Press",
+    "muscleGroup": "Chest",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB Biceps Curl",
+    "muscleGroup": "Biceps",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "TRX Over Row",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Lateral Shoulder Raises",
+    "muscleGroup": "Back",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Incline DB Press",
+    "muscleGroup": "Chest",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Face Pull",
+    "muscleGroup": "Shoulders",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "DB Kickback",
+    "muscleGroup": "Triceps",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Single-Leg Glute Bridge",
+    "muscleGroup": "Glutes",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Chin up/TRX Row",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "KTB Squat",
+    "muscleGroup": "Quadriceps",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Negative Incline Push Ups",
+    "muscleGroup": "Chest",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Narrow Row Machine",
+    "muscleGroup": "Back",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Straight Leg Raises",
+    "muscleGroup": "Core",
+    "category": "Dynamic",
+    "createdBy": "system"
+  },
+  {
+    "name": "Seated Row",
+    "muscleGroup": "Back",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Leg Press",
+    "muscleGroup": "Quadriceps",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Shoulder Press Machine",
+    "muscleGroup": "Shoulders",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Leg curl machine - single led",
+    "muscleGroup": "Hamstring",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Biceps Curl Cable",
+    "muscleGroup": "Biceps",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Triceps Pushdown Cable",
+    "muscleGroup": "Triceps",
+    "category": "Isolation",
+    "createdBy": "system"
+  },
+  {
+    "name": "Db Squat body-side-hold",
+    "muscleGroup": "Quadriceps",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Single Leg Hip Thrust",
+    "muscleGroup": "Glutes",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Db Arnold Press",
+    "muscleGroup": "Shoulders",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Bb/Db Hip thrust",
+    "muscleGroup": "Glutes",
+    "category": "Primary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Wide Pull-Ups",
+    "muscleGroup": "Back",
+    "category": "Secondary",
+    "createdBy": "system"
+  },
+  {
+    "name": "Machine Pull down",
+    "muscleGroup": "Back",
+    "category": "General",
+    "createdBy": "system"
+  }
+]

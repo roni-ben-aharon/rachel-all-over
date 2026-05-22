@@ -113,3 +113,154 @@ function toggleCsvNote(i) {
 </script>
 </body>
 </html>
+<!-- Exercise Library Screens -->
+<div class="screen-section">
+  <p class="screen-label">Exercise library — combobox (edit mode / session)</p>
+  <div class="screen-wrap" style="overflow:visible;padding:0;">
+    <div style="padding:9px 14px;border-bottom:0.5px solid #e0e0e0;display:flex;justify-content:space-between;align-items:center;background:#fafafa;">
+      <p style="font-size:12px;font-weight:500;margin:0;">Workout A — edit mode</p>
+    </div>
+    <table style="width:100%;font-size:12px;border-collapse:collapse;table-layout:fixed;">
+      <thead><tr style="background:#f5f5f5;">
+        <th style="text-align:left;padding:7px 14px;font-weight:500;color:#888;font-size:11px;width:18%;">Muscle group</th>
+        <th style="text-align:left;padding:7px 10px;font-weight:500;color:#888;font-size:11px;width:13%;">Category</th>
+        <th style="text-align:left;padding:7px 10px;font-weight:500;color:#888;font-size:11px;width:12%;">Technique</th>
+        <th style="text-align:left;padding:7px 10px;font-weight:500;color:#888;font-size:11px;width:28%;">Exercise</th>
+        <th style="text-align:center;padding:7px 8px;font-weight:500;color:#888;font-size:11px;width:7%;">Sets</th>
+        <th style="text-align:center;padding:7px 8px;font-weight:500;color:#888;font-size:11px;width:7%;">Reps</th>
+        <th style="text-align:left;padding:7px 14px;font-weight:500;color:#888;font-size:11px;width:11%;">Resistance</th>
+        <th style="width:4%;"></th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-top:0.5px solid #e0e0e0;">
+          <td style="padding:8px 14px;"><input type="text" value="Back" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;border:0.5px solid #ddd;"></td>
+          <td style="padding:8px 10px;"><input type="text" value="Secondary" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;border:0.5px solid #ddd;"></td>
+          <td style="padding:8px 10px;"><input type="text" placeholder="—" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;border:0.5px solid #ddd;"></td>
+          <td style="padding:8px 10px;"><input type="text" value="Pull up" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;border:0.5px solid #ddd;"></td>
+          <td style="padding:8px 4px;text-align:center;"><input type="text" value="3" style="width:36px;font-size:12px;padding:4px;border-radius:4px;border:0.5px solid #ddd;text-align:center;"></td>
+          <td style="padding:8px 4px;text-align:center;"><input type="text" value="7" style="width:40px;font-size:12px;padding:4px;border-radius:4px;border:0.5px solid #ddd;text-align:center;"></td>
+          <td style="padding:8px 14px;"><input type="text" value="Red band" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;border:0.5px solid #ddd;"></td>
+          <td style="padding:8px;text-align:center;"><span style="font-size:12px;color:#ef4444;cursor:pointer;">✕</span></td>
+        </tr>
+        <tr style="border-top:0.5px solid #e0e0e0;background:#fafafa;">
+          <td style="padding:8px 14px;"><input type="text" value="Chest" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;background:#EFF6FF;color:#1D4ED8;border:0.5px solid #93C5FD;"></td>
+          <td style="padding:8px 10px;"><input type="text" value="Primary" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;background:#EFF6FF;color:#1D4ED8;border:0.5px solid #93C5FD;"></td>
+          <td style="padding:8px 10px;"><input type="text" placeholder="—" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;border:0.5px solid #ddd;"></td>
+          <td style="padding:8px 10px;position:relative;z-index:10;">
+            <input type="text" value="Db inc" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;border:0.5px solid #3B82F6;outline:none;">
+            <div style="position:absolute;top:calc(100% + 2px);left:0;right:0;background:#fff;border:0.5px solid #d0d0d0;border-radius:8px;z-index:100;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+              <div style="padding:10px 12px;background:#f5f5f5;display:flex;flex-direction:column;gap:3px;">
+                <span style="font-size:13px;font-weight:500;color:#111;">Db incline bench press</span>
+                <div style="display:flex;gap:6px;"><span style="font-size:11px;color:#888;">Chest</span><span style="font-size:11px;color:#888;">·</span><span style="font-size:11px;color:#888;">Primary</span><span style="font-size:11px;color:#888;">·</span><span style="font-size:11px;color:#888;">kg</span></div>
+              </div>
+              <div style="height:0.5px;background:#e0e0e0;"></div>
+              <div style="padding:10px 12px;display:flex;flex-direction:column;gap:3px;">
+                <span style="font-size:13px;color:#111;">Db incline fly</span>
+                <div style="display:flex;gap:6px;"><span style="font-size:11px;color:#888;">Chest</span><span style="font-size:11px;color:#888;">·</span><span style="font-size:11px;color:#888;">Isolation</span><span style="font-size:11px;color:#888;">·</span><span style="font-size:11px;color:#888;">kg</span></div>
+              </div>
+              <div style="height:0.5px;background:#e0e0e0;"></div>
+              <div style="padding:10px 12px;display:flex;align-items:center;gap:8px;">
+                <span style="font-size:14px;color:#3B82F6;">+</span>
+                <div style="display:flex;flex-direction:column;gap:2px;">
+                  <span style="font-size:12px;color:#3B82F6;font-weight:500;">Add "Db inc" to library</span>
+                  <span style="font-size:11px;color:#888;">Save as a new exercise</span>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td style="padding:8px 4px;text-align:center;"><input type="text" value="3" style="width:36px;font-size:12px;padding:4px;border-radius:4px;border:0.5px solid #ddd;text-align:center;"></td>
+          <td style="padding:8px 4px;text-align:center;"><input type="text" value="10" style="width:40px;font-size:12px;padding:4px;border-radius:4px;border:0.5px solid #ddd;text-align:center;"></td>
+          <td style="padding:8px 14px;"><input type="text" value="10 kg" style="width:100%;font-size:12px;padding:4px 6px;border-radius:4px;border:0.5px solid #ddd;"></td>
+          <td style="padding:8px;text-align:center;"><span style="font-size:12px;color:#ef4444;cursor:pointer;">✕</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <div style="padding:8px 14px;border-top:0.5px solid #e0e0e0;display:flex;align-items:center;gap:6px;">
+      <div style="width:10px;height:10px;border-radius:2px;background:#EFF6FF;border:0.5px solid #93C5FD;"></div>
+      <span style="font-size:11px;color:#888;">Blue fields = auto-filled from library · editable if needed</span>
+    </div>
+  </div>
+</div>
+
+<div class="screen-section">
+  <p class="screen-label">Exercise library — add to library modal</p>
+  <div style="background:#f5f5f5;border-radius:12px;padding:40px;display:flex;align-items:center;justify-content:center;">
+    <div style="background:#fff;border:0.5px solid #e0e0e0;border-radius:12px;width:320px;padding:20px;display:flex;flex-direction:column;gap:14px;">
+      <div>
+        <p style="font-size:14px;font-weight:500;margin:0;"">Add to exercise library</p>
+        <p style="font-size:12px;color:#888;margin:4px 0 0;">"Box climb" wasn't found — add it?</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <label style="font-size:11px;font-weight:500;color:#888;">Name</label>
+          <input type="text" value="Box climb" style="width:100%;padding:7px 10px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;box-sizing:border-box;">
+        </div>
+        <div style="display:flex;gap:10px;">
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px;">
+            <label style="font-size:11px;font-weight:500;color:#888;">Muscle group</label>
+            <input type="text" placeholder="e.g. Quadriceps" style="width:100%;padding:7px 10px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;box-sizing:border-box;">
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px;">
+            <label style="font-size:11px;font-weight:500;color:#888;">Category</label>
+            <input type="text" placeholder="e.g. Secondary" style="width:100%;padding:7px 10px;font-size:13px;border:0.5px solid #ddd;border-radius:6px;box-sizing:border-box;">
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:4px;">
+          <label style="font-size:11px;font-weight:500;color:#888;">Default resistance type</label>
+          <div style="display:flex;gap:6px;">
+            <button style="flex:1;padding:6px;font-size:12px;border-radius:6px;background:#111;color:#fff;border:none;">kg</button>
+            <button style="flex:1;padding:6px;font-size:12px;border-radius:6px;border:0.5px solid #ddd;">Band</button>
+            <button style="flex:1;padding:6px;font-size:12px;border-radius:6px;border:0.5px solid #ddd;">Bodyweight</button>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;gap:8px;justify-content:flex-end;border-top:0.5px solid #e0e0e0;padding-top:14px;">
+        <button style="font-size:12px;padding:6px 14px;border-radius:6px;border:0.5px solid #ddd;">Skip</button>
+        <button style="font-size:12px;padding:6px 14px;border-radius:6px;background:#111;color:#fff;border:none;">Add to library</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="screen-section">
+  <p class="screen-label">Exercise library — management page (/library)</p>
+  <div class="screen-wrap">
+    <div style="padding:12px 20px;border-bottom:0.5px solid #e0e0e0;display:flex;align-items:center;justify-content:space-between;">
+      <div>
+        <p style="font-size:14px;font-weight:500;margin:0;">Exercise library</p>
+        <p style="font-size:11px;color:#888;margin:3px 0 0;">107 exercises</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input type="text" placeholder="Search..." style="font-size:12px;padding:6px 10px;width:160px;border:0.5px solid #ddd;border-radius:6px;">
+        <button style="font-size:12px;padding:6px 14px;border-radius:6px;background:#111;color:#fff;border:none;">+ Add exercise</button>
+      </div>
+    </div>
+    <div style="display:flex;gap:4px;padding:8px 20px;border-bottom:0.5px solid #e0e0e0;background:#fafafa;">
+      <button style="font-size:11px;padding:4px 10px;border-radius:6px;background:#111;color:#fff;border:none;">All</button>
+      <button style="font-size:11px;padding:4px 10px;border-radius:6px;border:0.5px solid #ddd;">Back</button>
+      <button style="font-size:11px;padding:4px 10px;border-radius:6px;border:0.5px solid #ddd;">Chest</button>
+      <button style="font-size:11px;padding:4px 10px;border-radius:6px;border:0.5px solid #ddd;">Legs</button>
+      <button style="font-size:11px;padding:4px 10px;border-radius:6px;border:0.5px solid #ddd;">Shoulders</button>
+      <button style="font-size:11px;padding:4px 10px;border-radius:6px;border:0.5px solid #ddd;">Core</button>
+    </div>
+    <table style="width:100%;font-size:12px;border-collapse:collapse;table-layout:fixed;">
+      <thead><tr style="background:#f5f5f5;">
+        <th style="text-align:left;padding:7px 20px;font-weight:500;color:#888;font-size:11px;width:30%;">Exercise</th>
+        <th style="text-align:left;padding:7px 10px;font-weight:500;color:#888;font-size:11px;width:20%;">Muscle group</th>
+        <th style="text-align:left;padding:7px 10px;font-weight:500;color:#888;font-size:11px;width:15%;">Category</th>
+        <th style="text-align:left;padding:7px 10px;font-weight:500;color:#888;font-size:11px;width:15%;">Resistance</th>
+        <th style="width:8%;"></th>
+      </tr></thead>
+      <tbody>
+        <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:9px 20px;font-weight:500;">Pull up</td><td style="padding:9px 10px;color:#888;">Back</td><td style="padding:9px 10px;color:#888;">Secondary</td><td style="padding:9px 10px;color:#888;">Band</td><td style="padding:9px 10px;text-align:center;color:#888;">✏️</td></tr>
+        <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:9px 20px;font-weight:500;">Db incline bench press</td><td style="padding:9px 10px;color:#888;">Chest</td><td style="padding:9px 10px;color:#888;">Primary</td><td style="padding:9px 10px;color:#888;">kg</td><td style="padding:9px 10px;text-align:center;color:#888;">✏️</td></tr>
+        <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:9px 20px;font-weight:500;">Box climb</td><td style="padding:9px 10px;color:#888;">Quadriceps</td><td style="padding:9px 10px;color:#888;">Secondary</td><td style="padding:9px 10px;color:#888;">Bodyweight</td><td style="padding:9px 10px;text-align:center;color:#888;">✏️</td></tr>
+        <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:9px 20px;font-weight:500;">Face pulls</td><td style="padding:9px 10px;color:#888;">Shoulders</td><td style="padding:9px 10px;color:#888;">Primary</td><td style="padding:9px 10px;color:#888;">Band</td><td style="padding:9px 10px;text-align:center;color:#888;">✏️</td></tr>
+        <tr style="border-top:0.5px solid #e0e0e0;"><td style="padding:9px 20px;font-weight:500;">Db deadlift</td><td style="padding:9px 10px;color:#888;">Hamstring</td><td style="padding:9px 10px;color:#888;">Primary</td><td style="padding:9px 10px;color:#888;">kg</td><td style="padding:9px 10px;text-align:center;color:#888;">✏️</td></tr>
+      </tbody>
+    </table>
+    <div style="padding:10px 20px;border-top:0.5px solid #e0e0e0;">
+      <p style="font-size:11px;color:#888;margin:0;">Showing 5 of 107 exercises</p>
+    </div>
+  </div>
+</div>

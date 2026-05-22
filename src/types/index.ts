@@ -75,9 +75,10 @@ export interface ExerciseLibraryItem {
   id: string
   name: string
   muscleGroup: string
-  category: 'Primary' | 'Secondary' | 'Isolation'
-  resistanceType: ResistanceType
+  category: string
+  defaultResistanceType: ResistanceType
   createdBy: 'system' | string
+  createdAt?: unknown
 }
 
 export interface Invite {
