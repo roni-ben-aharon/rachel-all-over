@@ -5,7 +5,8 @@ import { useLatestSession, formatSessionDate, saveSession } from '../hooks/useSe
 import { WorkoutTableEdit } from '../components/trainer/WorkoutTableEdit'
 import { WorkoutTable } from '../components/trainer/WorkoutTable'
 import { SessionModal } from '../components/trainer/SessionModal'
-import { Exercise } from '../types'
+import { useExerciseLibrary } from '../hooks/useExerciseLibrary'
+import { Exercise, ResistanceType } from '../types'
 
 interface Props {
   trainerId: string
@@ -33,6 +34,12 @@ export function WorkoutSession({ trainerId }: Props) {
   const [showEndModal, setShowEndModal] = useState(false)
   const [saving, setSaving] = useState(false)
   const initialized = useRef(false)
+
+  const { addExercise: addToLibrary } = useExerciseLibrary()
+
+  async function handleAddExercise(item: { name: string; muscleGroup: string; category: string; defaultResistanceType: ResistanceType }) {
+    await addToLibrary({ ...item, trainerId })
+  }
 
   useEffect(() => {
     if (!workout || !workoutId || initialized.current) return
@@ -184,7 +191,7 @@ export function WorkoutSession({ trainerId }: Props) {
                 {isDirty ? 'Unsaved changes' : 'No changes yet'}
               </span>
             </div>
-            <WorkoutTableEdit exercises={exercises} onChange={handleChange} />
+            <WorkoutTableEdit exercises={exercises} onChange={handleChange} onAddExercise={handleAddExercise} />
           </section>
         )}
 

@@ -10,6 +10,7 @@ import { TrainerDashboard } from './pages/TrainerDashboard'
 import { ClientProgram } from './pages/ClientProgram'
 import { ClientProgress } from './pages/ClientProgress'
 import { WorkoutSession } from './pages/WorkoutSession'
+import { Library } from './pages/Library'
 import { Client } from './types'
 
 function AppRoutes() {
@@ -72,6 +73,9 @@ function AppRoutes() {
         } />
         <Route path="/session/:clientId/:workoutId" element={
           <WorkoutSession trainerId={trainerId ?? user.uid} />
+        } />
+        <Route path="/library" element={
+          <Library trainerId={trainerId ?? user.uid} />
         } />
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>

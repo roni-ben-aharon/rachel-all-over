@@ -5,11 +5,12 @@ import { signOut } from 'firebase/auth'
 import { db, auth } from '../lib/firebase'
 import { useClients } from '../hooks/useClients'
 import { useActiveProgram, useWorkouts } from '../hooks/useWorkouts'
+import { useExerciseLibrary } from '../hooks/useExerciseLibrary'
 import { WorkoutTable } from '../components/trainer/WorkoutTable'
 import { WorkoutTableEdit } from '../components/trainer/WorkoutTableEdit'
 import { AddClientModal } from '../components/trainer/AddClientModal'
 import { SessionHistoryPanel } from '../components/trainer/SessionHistoryPanel'
-import { Exercise, Workout } from '../types'
+import { Exercise, Workout, ResistanceType } from '../types'
 
 const WORKOUT_LABELS = ['Workout A', 'Workout B', 'Workout C', 'Workout D', 'Workout E']
 
@@ -39,7 +40,7 @@ function ChevronIcon({ open }: { open: boolean }) {
 }
 
 function WorkoutCard({
-  workout, editMode, draft, persisted, onDraftChange, onDelete, onStartSession, blocked,
+  workout, editMode, draft, persisted, onDraftChange, onDelete, onStartSession, blocked, onAddExercise,
 }: {
   workout: Workout
   editMode: boolean
@@ -49,6 +50,7 @@ function WorkoutCard({
   onDelete: (workoutId: string) => void
   onStartSession: (workoutId: string) => void
   blocked: boolean
+  onAddExercise: (item: { name: string; muscleGroup: string; category: string; defaultResistanceType: ResistanceType }) => Promise<void>
 }) {
   const [open, setOpen] = useState(true)
   const hasDraft = !!localStorage.getItem(`tracklift:session:${workout.id}`)
@@ -101,6 +103,7 @@ function WorkoutCard({
             <WorkoutTableEdit
               exercises={exercises}
               onChange={exs => onDraftChange(workout.id, exs)}
+              onAddExercise={onAddExercise}
             />
           </div>
         ) : (
@@ -120,6 +123,11 @@ interface Props {
 export function TrainerDashboard({ trainerId, trainerName }: Props) {
   const navigate = useNavigate()
   const { clients } = useClients(trainerId)
+  const { addExercise: addToLibrary } = useExerciseLibrary()
+
+  async function handleAddExercise(item: { name: string; muscleGroup: string; category: string; defaultResistanceType: ResistanceType }) {
+    await addToLibrary({ ...item, trainerId })
+  }
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null)
   const [showAddClient, setShowAddClient] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
@@ -335,6 +343,12 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
             + Add client
           </button>
           <button
+            onClick={() => navigate('/library')}
+            className="w-full text-xs py-1.5 text-gray-500 hover:text-gray-700 rounded-md hover:bg-gray-100"
+          >
+            Exercise library
+          </button>
+          <button
             onClick={() => signOut(auth)}
             className="w-full text-xs py-1.5 text-gray-400 hover:text-gray-600 rounded-md hover:bg-gray-100"
           >
@@ -438,6 +452,7 @@ export function TrainerDashboard({ trainerId, trainerName }: Props) {
                   onDelete={handleDeleteWorkout}
                   onStartSession={handleStartSession}
                   blocked={!!activeSessionWorkoutId && activeSessionWorkoutId !== w.id}
+                  onAddExercise={handleAddExercise}
                 />
               ))}
               {workouts.length === 0 && !editMode && (

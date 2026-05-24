@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { Exercise, ResistanceType } from '../../types'
+import { ExerciseCombobox } from '../library/ExerciseCombobox'
+import { AddToLibraryModal } from '../library/AddToLibraryModal'
+import { useExerciseLibrary } from '../../hooks/useExerciseLibrary'
 
 const BAND_COLORS = ['red', 'blue', 'green', 'black', 'purple']
 const BAND_EMOJIS: Record<string, string> = { red: '🔴', blue: '🔵', green: '🟢', black: '⚫', purple: '🟣' }
@@ -61,10 +64,15 @@ function ResistanceInput({ resistance, onChange }: { resistance: Exercise['resis
 interface WorkoutTableEditProps {
   exercises: Exercise[]
   onChange: (exercises: Exercise[]) => void
+  onAddExercise?: (item: { name: string; muscleGroup: string; category: string; defaultResistanceType: ResistanceType }) => Promise<void>
 }
 
-export function WorkoutTableEdit({ exercises, onChange }: WorkoutTableEditProps) {
+export function WorkoutTableEdit({ exercises, onChange, onAddExercise }: WorkoutTableEditProps) {
   const [openNotes, setOpenNotes] = useState<Set<number>>(new Set())
+  const [autoFilled, setAutoFilled] = useState<Set<number>>(new Set())
+  const [addToLibraryState, setAddToLibraryState] = useState<{ rowIndex: number; name: string } | null>(null)
+
+  const { search } = useExerciseLibrary()
 
   function toggleNote(i: number) {
     setOpenNotes(prev => {
@@ -78,8 +86,30 @@ export function WorkoutTableEdit({ exercises, onChange }: WorkoutTableEditProps)
     onChange(exercises.map((ex, idx) => idx === i ? { ...ex, ...patch } : ex))
   }
 
+  function handleAutoFill(i: number, data: { muscleGroup: string; category: string; defaultResistanceType: ResistanceType }) {
+    updateExercise(i, {
+      muscleGroup: data.muscleGroup,
+      category: data.category,
+      resistance: { type: data.defaultResistanceType, ...(data.defaultResistanceType === 'kg' ? { value: 0 } : data.defaultResistanceType === 'band' ? { bandColor: 'red', assisted: false } : {}) },
+    })
+    setAutoFilled(prev => new Set(prev).add(i))
+  }
+
+  function clearAutoFill(i: number) {
+    setAutoFilled(prev => {
+      const next = new Set(prev)
+      next.delete(i)
+      return next
+    })
+  }
+
   function removeExercise(i: number) {
     onChange(exercises.filter((_, idx) => idx !== i))
+    setAutoFilled(prev => {
+      const next = new Set<number>()
+      prev.forEach(idx => { if (idx < i) next.add(idx); else if (idx > i) next.add(idx - 1) })
+      return next
+    })
   }
 
   function addExercise() {
@@ -88,6 +118,17 @@ export function WorkoutTableEdit({ exercises, onChange }: WorkoutTableEditProps)
       sets: 3, reps: '10', resistance: { type: 'kg', value: 0 }, notes: '',
     }])
   }
+
+  async function handleSaveToLibrary(item: { name: string; muscleGroup: string; category: string; defaultResistanceType: ResistanceType }) {
+    if (onAddExercise) await onAddExercise(item)
+    if (addToLibraryState) {
+      updateExercise(addToLibraryState.rowIndex, { name: item.name })
+    }
+    setAddToLibraryState(null)
+  }
+
+  const autoFillCellClass = 'bg-blue-50 border-blue-200 text-blue-700'
+  const normalCellClass = 'border-gray-200'
 
   return (
     <div>
@@ -112,17 +153,17 @@ export function WorkoutTableEdit({ exercises, onChange }: WorkoutTableEditProps)
                 <td className="px-1 py-1.5">
                   <input
                     value={ex.muscleGroup ?? ''}
-                    onChange={e => updateExercise(i, { muscleGroup: e.target.value })}
+                    onChange={e => { updateExercise(i, { muscleGroup: e.target.value }); clearAutoFill(i) }}
                     placeholder="e.g. Back"
-                    className="w-full text-xs border border-gray-200 rounded px-1.5 py-1"
+                    className={`w-full text-xs border rounded px-1.5 py-1 ${autoFilled.has(i) ? autoFillCellClass : normalCellClass}`}
                   />
                 </td>
                 <td className="px-1 py-1.5">
                   <input
                     value={ex.category ?? ''}
-                    onChange={e => updateExercise(i, { category: e.target.value })}
+                    onChange={e => { updateExercise(i, { category: e.target.value }); clearAutoFill(i) }}
                     placeholder="e.g. Primary"
-                    className="w-full text-xs border border-gray-200 rounded px-1.5 py-1"
+                    className={`w-full text-xs border rounded px-1.5 py-1 ${autoFilled.has(i) ? autoFillCellClass : normalCellClass}`}
                   />
                 </td>
                 <td className="px-1 py-1.5">
@@ -134,11 +175,13 @@ export function WorkoutTableEdit({ exercises, onChange }: WorkoutTableEditProps)
                   />
                 </td>
                 <td className="px-1 py-1.5">
-                  <input
+                  <ExerciseCombobox
                     value={ex.name}
-                    onChange={e => updateExercise(i, { name: e.target.value })}
-                    placeholder="Exercise name *"
-                    className={`w-full text-xs border rounded px-1.5 py-1 ${!ex.name.trim() ? 'border-red-300 bg-red-50' : 'border-gray-200'}`}
+                    onChange={name => updateExercise(i, { name })}
+                    onAutoFill={data => handleAutoFill(i, data)}
+                    onAddToLibrary={name => setAddToLibraryState({ rowIndex: i, name })}
+                    search={search}
+                    hasError={!ex.name.trim()}
                   />
                 </td>
                 <td className="px-1 py-1.5 text-center">
@@ -200,6 +243,7 @@ export function WorkoutTableEdit({ exercises, onChange }: WorkoutTableEditProps)
           ))}
         </tbody>
       </table>
+
       <div className="mt-3">
         <button
           type="button"
@@ -209,6 +253,14 @@ export function WorkoutTableEdit({ exercises, onChange }: WorkoutTableEditProps)
           + Add exercise
         </button>
       </div>
+
+      {addToLibraryState && (
+        <AddToLibraryModal
+          initialName={addToLibraryState.name}
+          onSkip={() => setAddToLibraryState(null)}
+          onSave={handleSaveToLibrary}
+        />
+      )}
     </div>
   )
 }

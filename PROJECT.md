@@ -224,13 +224,13 @@ Success:          #1D9E75
 |------|------|--------|
 | 1 | Types + seed script + `exercises.json` | ✅ Done |
 | 2 | `useExerciseLibrary` hook | ✅ Done |
-| 3+4 | `ExerciseCombobox` + `AddToLibraryModal` | 🔴 |
-| 5 | Wire combobox into `WorkoutTableEdit` | 🔴 |
-| 6 | Wire combobox into `WorkoutSession` | 🔴 |
-| 7a | `Library.tsx` — table + filter pills (display only) | 🔴 |
-| 7b | Library — inline row edit | 🔴 |
-| 7c | Library — search + pagination | 🔴 |
-| 8 | Sidebar link + `/library` route | 🔴 |
+| 3+4 | `ExerciseCombobox` + `AddToLibraryModal` | ✅ Done |
+| 5 | Wire combobox into `WorkoutTableEdit` | ✅ Done |
+| 6 | Wire combobox into `WorkoutSession` | ✅ Done |
+| 7a | `Library.tsx` — table + filter pills (display only) | ✅ Done |
+| 7b | Library — inline row edit | ✅ Done |
+| 7c | Library — search + pagination | ✅ Done |
+| 8 | Sidebar link + `/library` route | ✅ Done |
 
 ### Other Phase 3 features
 
