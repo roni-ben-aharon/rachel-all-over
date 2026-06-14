@@ -6,13 +6,21 @@ Workout tracking app for personal trainers and their clients.
 
 React · TypeScript · Vite · Firebase (Firestore + Auth) · Tailwind · Playwright
 
+## Project structure
+
+```text
+client/   React frontend
+server/   Backend/server-side code and emulator seed scripts
+shared/   Types, constants, and validation shared by client and server
+```
+
 ---
 
 ## Setup
 
 ```bash
 npm install
-cp .env.example .env   # fill in Firebase keys (get from project owner)
+cp client/.env.example client/.env   # fill in Firebase keys (get from project owner)
 ```
 
 ## Run (production Firebase)
@@ -26,7 +34,7 @@ npm run dev            # http://localhost:5174
 ```bash
 npm run emulator       # start Firebase emulator (terminal 1)
 npm run dev:local      # http://localhost:5175  (terminal 2)
-node scripts/seed.mjs  # seed test data (emulator must be running)
+npm run seed           # seed test data (emulator must be running)
 ```
 
 ---

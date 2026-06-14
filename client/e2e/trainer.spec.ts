@@ -463,6 +463,7 @@ test('Resume draft banner appears when localStorage draft exists', async ({ page
   })
   // Navigate away and back so the component re-mounts and reads localStorage
   await page.goBack()
+  await selectClient(page, 'Ofir Inbar', 3)
   await page.locator('[data-testid="start-session-btn"]').first().click()
   await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
 
@@ -488,6 +489,7 @@ test('Resume draft loads draft exercises', async ({ page }) => {
     value: draft,
   })
   await page.goBack()
+  await selectClient(page, 'Ofir Inbar', 3)
   await page.locator('[data-testid="start-session-btn"]').first().click()
   await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
 
@@ -516,6 +518,7 @@ test('Discard draft loads fresh program exercises', async ({ page }) => {
     value: draft,
   })
   await page.goBack()
+  await selectClient(page, 'Ofir Inbar', 3)
   await page.locator('[data-testid="start-session-btn"]').first().click()
   await expect(page).toHaveURL(/\/session\/[^/]+\/[^/]+/, { timeout: 5000 })
 
@@ -645,8 +648,8 @@ test('workout card shows Resume session after draft exists', async ({ page }) =>
   await page.locator('[data-testid="cancel-session-btn"]').click()
   await expect(page).toHaveURL(/\/dashboard/, { timeout: 5000 })
 
-  // Re-select client so cards re-mount and read fresh localStorage
-  await selectClient(page, 'Roni Ben Aharon', 2)
+  // Reload so cards re-mount and read fresh localStorage
+  await page.reload()
   await selectClient(page, 'Ofir Inbar', 3)
 
   // First workout card now shows "Resume session"

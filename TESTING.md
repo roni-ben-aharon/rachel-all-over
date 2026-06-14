@@ -25,7 +25,7 @@ firebase-tools      # npm install -g firebase-tools
 npm run emulator
 
 # Terminal 2 — Dev server (emulator mode, port 5175)
-npm run dev
+npm run dev:local
 ```
 
 ---
@@ -34,14 +34,14 @@ npm run dev
 
 ```bash
 # Reseeds emulator automatically before run
-npm run test:e2e
+npm run e2e
 
 # Single file
-npx playwright test e2e/trainer.spec.ts
-npx playwright test e2e/client.spec.ts
+npm --prefix client run e2e -- e2e/trainer.spec.ts
+npm --prefix client run e2e -- e2e/client.spec.ts
 
 # Single test by name
-npx playwright test -g "Ofir"
+npm --prefix client run e2e -- -g "Ofir"
 ```
 
 ## Run unit tests
@@ -80,15 +80,15 @@ Signup URL: `http://localhost:5175/signup?invite=test-invite-001`
 ## Reseed emulator manually
 
 ```bash
-node scripts/seed.mjs
+npm run seed
 ```
 
 ---
 
 ## Test coverage
 
-### `e2e/trainer.spec.ts` (21 tests)
-Trainer login/logout, workout card counts per client, no count inflation on switch, seeded exercises, save/persist, add exercise, cancel edit, duplicate email, unnamed exercise validation, collapse/expand, delete workout, add workout, 5-workout cap, reps validation, cross-client isolation, header info.
+### `client/e2e/trainer.spec.ts` (39 tests)
+Trainer login/logout, workout card counts per client, no count inflation on switch, seeded exercises, save/persist, add exercise, cancel edit, duplicate email, unnamed exercise validation, collapse/expand, delete workout, add workout, 5-workout cap, reps validation, cross-client isolation, header info, session flow, session drafts, previous session display, and session history.
 
-### `e2e/client.spec.ts` (12 tests)
-Client login → `/my-program`, workout card count, read-only (no Edit button), seeded exercises visible, header shows program + trainer, collapse/expand, sign out, signup errors (no invite / bad invite), invite page banner + pre-filled email, full signup flow, trainer creates client → invite link in modal.
+### `client/e2e/client.spec.ts` (14 tests)
+Client login → `/my-program`, workout card count, read-only (no Edit button), seeded exercises visible, header shows program + trainer, collapse/expand, sign out, signup errors (no invite / bad invite), invite page banner + pre-filled email, full signup flow, trainer creates client → invite link in modal, and client progress navigation.

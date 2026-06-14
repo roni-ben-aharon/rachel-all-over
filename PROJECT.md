@@ -35,10 +35,10 @@
 ```bash
 npm run emulator       # terminal 1 — Firebase emulator
 npm run dev:local      # terminal 2 — http://localhost:5175
-node scripts/seed.mjs  # seed test data (emulator must be running)
+npm run seed           # seed test data (emulator must be running)
 ```
 
-**Firebase keys:** in `.env` (not committed — see `.env.example`)
+**Firebase keys:** in `client/.env` (not committed — see `client/.env.example`)
 
 ---
 

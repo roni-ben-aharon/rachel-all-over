@@ -1,0 +1,6 @@
+{
+  "name": "@rachel-all-over/shared",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts"
+}
