@@ -1,0 +1,201 @@
+/* ============================================================
+   RachelAllOver — Design System Tokens
+   Port these into your codebase as CSS variables, Tailwind theme
+   extension, or styled-components theme — whichever fits.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap');
+
+:root {
+  /* ---------- Backgrounds & surfaces ---------- */
+  --bg:             #F1EDE4;  /* page */
+  --bg-2:           #E8E3D7;  /* modal scrim, secondary canvas */
+  --surface:        #FFFFFF;  /* cards, inputs */
+  --surface-soft:   #FBFAF6;  /* subtle lift (table headers, footers) */
+  --surface-sunken: #F4F1EA;  /* inset (kbd, chips, disabled inputs) */
+
+  /* ---------- Ink (text) ---------- */
+  --ink:   #15130F; /* primary text, primary button bg */
+  --ink-2: #3A362E; /* strong secondary text, numerals */
+  --ink-3: #6E685C; /* body secondary text, muted labels */
+  --ink-4: #9B9486; /* tertiary text, placeholders, axis labels */
+
+  /* ---------- Lines ---------- */
+  --line:      #E5DFD2; /* default borders */
+  --line-soft: #EFEBE0; /* internal dividers (table rows) */
+
+  /* ---------- Accent palette (always pair fill + ink) ---------- */
+  --sage:        #CBD7B5;  --sage-ink:     #2C3B1E; /* active / success / in-library */
+  --amber:       #F3D58F;  --amber-ink:    #5B4317; /* live session / warning / pending */
+  --lavender:    #C8C5E4;  --lavender-ink: #312E66; /* info / library-linked / custom */
+  --rose:        #E8C5BD;  --rose-ink:     #5B2A1F; /* soft error chip */
+
+  /* ---------- Semantic ---------- */
+  --danger:  #C2410C; /* destructive icons, error text */
+  --success: #4F7A3A; /* positive delta, validation pass */
+
+  /* ---------- Band swatch colors (for resistance chips) ---------- */
+  --band-red:    #C2410C;
+  --band-blue:   #3B82F6;
+  --band-green:  #4F7A3A;
+  --band-black:  #15130F;
+  --band-purple: #7C5BD0;
+
+  /* ---------- Radius ---------- */
+  --r-xl: 18px; /* screen frames, modals */
+  --r-lg: 14px; /* cards, workout containers */
+  --r-md: 10px; /* large buttons, pills */
+  --r-sm:  6px; /* resist chips, kbd, small inputs */
+
+  /* ---------- Shadow ---------- */
+  --shadow-card:    0 1px 0 rgba(21,19,15,.04), 0 12px 32px -16px rgba(21,19,15,.12);
+  --shadow-modal:   0 24px 60px -20px rgba(21,19,15,.25), 0 2px 0 rgba(21,19,15,.04);
+  --shadow-tooltip: 0 16px 40px -8px rgba(21,19,15,.18), 0 2px 0 rgba(21,19,15,.04);
+
+  /* ---------- Type ---------- */
+  --font-sans:  'Geist', ui-sans-serif, system-ui, sans-serif;
+  --font-mono:  'Geist Mono', ui-monospace, monospace;
+  --font-serif: 'Newsreader', serif; /* italic only — editorial accents */
+}
+
+/* ============================================================
+   Base typography rules
+   ============================================================ */
+
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01","ss02","cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.mono  { font-family: var(--font-mono); font-feature-settings: "tnum","zero"; }
+.serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+
+/* Type scale — use these as starting points */
+.t-display { font-size: 32px; font-weight: 500; letter-spacing: -0.025em; line-height: 1.05; }
+.t-h2      { font-size: 22px; font-weight: 500; letter-spacing: -0.02em;  line-height: 1.15; }
+.t-h3      { font-size: 18px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.2; }
+.t-body    { font-size: 13px; font-weight: 400; line-height: 1.55; color: var(--ink-2); }
+.t-small   { font-size: 12px; font-weight: 400; color: var(--ink-3); }
+.t-label   { font-size: 10.5px; font-weight: 500; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.1em; }
+
+/* ============================================================
+   Shared component primitives
+   (copy these patterns into your component library)
+   ============================================================ */
+
+/* --- Button --- */
+.btn {
+  font: inherit;
+  font-size: 12px; font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all .15s;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.btn:hover         { background: var(--surface-sunken); border-color: var(--ink-4); }
+.btn.primary       { background: var(--ink);  color: #fff;  border-color: var(--ink); }
+.btn.primary:hover { background: #000; }
+.btn.amber         { background: var(--amber-ink); color: #fff; border-color: var(--amber-ink); }
+.btn.ghost         { background: transparent; border-color: transparent; color: var(--ink-3); }
+.btn.sm            { font-size: 11.5px; padding: 6px 12px; border-radius: 7px; }
+.btn.icon          { padding: 6px; width: 30px; justify-content: center; }
+
+/* --- Pill --- */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10.5px; font-weight: 500;
+}
+.pill.sage     { background: var(--sage);     color: var(--sage-ink); }
+.pill.amber    { background: var(--amber);    color: var(--amber-ink); }
+.pill.lavender { background: var(--lavender); color: var(--lavender-ink); }
+.pill.rose     { background: var(--rose);     color: var(--rose-ink); }
+.pill.ghost    { background: var(--surface-sunken); color: var(--ink-3); border: 1px solid var(--line); }
+.pill .dot     { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .7; }
+
+/* --- Input --- */
+.input {
+  font: inherit;
+  font-size: 13px;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  width: 100%;
+  outline: none;
+  transition: all .15s;
+}
+.input:focus      { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(21,19,15,.06); }
+.input::placeholder { color: var(--ink-4); }
+.input:disabled   { background: var(--surface-sunken); color: var(--ink-3); }
+
+/* --- Keyboard chip --- */
+.kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  background: var(--surface-sunken);
+  color: var(--ink-3);
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+/* --- Workout table --- */
+.wcard {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background: var(--surface);
+}
+.wcard-head {
+  padding: 12px 18px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--surface-soft);
+  border-bottom: 1px solid var(--line-soft);
+}
+table.workout              { width: 100%; font-size: 12.5px; table-layout: fixed; border-collapse: collapse; }
+table.workout thead th     { text-align: left; padding: 10px 18px; font-weight: 500; color: var(--ink-3); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.1em; background: var(--surface); border-bottom: 1px solid var(--line-soft); }
+table.workout tbody td     { padding: 13px 18px; border-bottom: 1px solid var(--line-soft); vertical-align: middle; }
+table.workout tbody tr:last-child td { border-bottom: none; }
+table.workout tbody tr:hover { background: var(--surface-soft); }
+table.workout .num         { font-family: var(--font-mono); color: var(--ink-2); font-feature-settings: "tnum"; }
+table.workout .muted       { color: var(--ink-3); }
+table.workout .ex-name     { font-weight: 500; letter-spacing: -0.005em; }
+
+/* --- Resist chip --- */
+.resist-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 9px;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-family: var(--font-mono);
+  background: var(--surface-sunken);
+  color: var(--ink-2);
+}
+.resist-chip .swatch { width: 8px; height: 8px; border-radius: 50%; }
+
+/* --- Note button --- */
+.note-btn {
+  width: 24px; height: 22px;
+  border-radius: 6px;
+  background: var(--surface-sunken);
+  display: inline-grid; place-items: center;
+  color: var(--ink-3);
+  cursor: pointer;
+  border: 1px solid var(--line-soft);
+}
+.note-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+.note-btn.empty  { background: transparent; border: 1px dashed var(--line); color: var(--ink-4); }
+.note-glyph      { display: inline-flex; flex-direction: column; gap: 2px; width: 10px; }
+.note-glyph i    { display: block; height: 1.5px; background: currentColor; border-radius: 1px; }
+.note-glyph i:nth-child(3) { width: 60%; }
